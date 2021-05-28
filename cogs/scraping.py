@@ -1,18 +1,27 @@
 import datetime as dt
 from discord.ext import commands
+from dotenv import load_dotenv
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
 from lxml.html import fromstring
+import os
+from os.path import join, dirname
 from pymongo import MongoClient
 import re
 import requests
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SERVICE_ACCOUNT_FILE = 'keys.json'
-SPREADSHEET_ID = '1FCsHIbe_zsKsqOqdXpteWTWK90D4gEzRwv6QVD2xhLc'
 
-MONGO_URL = 'mongodb+srv://dbUser:testTEST1234@cluster0.xpjhr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-DEBUG = True
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
+load_dotenv()
+
+MONGO_URL = os.getenv('MONGO_URL')
+SPREADSHEET_ID = os.getenv('SPREADSHEET_ID')
+
+DEBUG = False
 
 cluster = MongoClient(MONGO_URL)
 db = cluster['triviaScraper']
